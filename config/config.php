@@ -20,7 +20,19 @@ define('GEMINI_API_ENDPOINT', 'https://generativelanguage.googleapis.com/v1/mode
 
 // --- App Settings ---
 define('APP_NAME', 'SafeSignal AI');
-define('APP_URL', 'http://localhost/SafeSignal');
+
+// Automatically detect APP_URL
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$script_path = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$base_path = rtrim($script_path, '/');
+// Handle deep paths - we want the root project folder
+if (strpos($base_path, '/pages') !== false) $base_path = dirname($base_path);
+if (strpos($base_path, '/api') !== false) $base_path = dirname($base_path);
+$base_path = rtrim($base_path, '/');
+
+define('APP_URL',  $protocol . "://" . $host . $base_path);
+
 define('UPLOAD_DIR', __DIR__ . '/../uploads/');
 define('UPLOAD_URL', APP_URL . '/uploads/');
 define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024); // 5MB
