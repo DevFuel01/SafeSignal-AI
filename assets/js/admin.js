@@ -468,6 +468,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Logout
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+            await fetch(`${API_BASE}/auth/logout.php`, { method: 'POST' });
+        } catch(err) {}
+        window.location.href = APP_URL + '/';
+    });
+
     // Overlay click to close
     document.querySelectorAll('.modal-overlay').forEach(overlay => {
         overlay.addEventListener('click', e => {
