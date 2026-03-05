@@ -105,7 +105,7 @@ window.Toast = Toast;
         try {
             await fetch(`${API_BASE}/auth/logout.php`, { method: 'POST' });
         } catch(err) {}
-        window.location.href = '/SafeSignal/';
+        window.location.href = APP_URL + '/';
     });
 
     // Dropdown accessibility
@@ -160,7 +160,7 @@ window.Toast = Toast;
                 Toast.show(`🚨 ${alert.severity} Alert`, alert.message, type, 8000);
 
                 if (sev === 'critical' && banner) {
-                    banner.innerHTML = `<i class="fas fa-triangle-exclamation"></i> ${alert.message} <a href="/SafeSignal/pages/map.php" style="color:inherit;margin-left:0.5rem;text-decoration:underline">View on Map →</a>`;
+                    banner.innerHTML = `<i class="fas fa-triangle-exclamation"></i> ${alert.message} <a href="${APP_URL}/pages/map.php" style="color:inherit;margin-left:0.5rem;text-decoration:underline">View on Map →</a>`;
                     banner.style.display = 'flex';
                     setTimeout(() => { banner.style.display = 'none'; }, 10000);
                 }
