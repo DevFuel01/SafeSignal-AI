@@ -102,7 +102,7 @@ async function loadMyReports() {
         const json = await res.json();
         if (!json.success) return;
         
-        // Filter to user's own reports (client-side for simplicity in demo)
+        // Filter to user own reports (client-side for simplicity in demo)
         const reports = json.data.reports || [];
         
         document.getElementById("stat-my-total").textContent    = reports.length;
@@ -169,6 +169,61 @@ async function loadAlerts() {
 }
 
 loadMyReports();
+
+// Profile Form
+document.getElementById("profile-form")?.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    const statusEl = document.getElementById("profile-status");
+    const name = this.name.value.trim();
+    
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner spinner-sm"></span> Saving...';
+    }
+    if (statusEl) statusEl.style.display = "none";
+
+    try {
+        const res  = await fetch("../api/auth/profile_update.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name })
+        });
+        const json = await res.json();
+        
+        if (json.success) {
+            if (statusEl) {
+                statusEl.className = "alert-msg success mb-3";
+                statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Profile updated successfully!';
+                statusEl.style.display = "flex";
+            }
+            // Update UI elements
+            const welcomeSpan = document.querySelector(".dashboard-welcome span");
+            if (welcomeSpan) welcomeSpan.textContent = name;
+            const logoUser = document.querySelector(".nav-user-btn span");
+            if (logoUser) logoUser.textContent = name;
+            const avatar = document.querySelector(".profile-avatar");
+            if (avatar) avatar.textContent = name.charAt(0).toUpperCase();
+        } else {
+            if (statusEl) {
+                statusEl.className = "alert-msg error mb-3";
+                statusEl.innerHTML = '<i class="fas fa-times-circle"></i> ' + json.message;
+                statusEl.style.display = "flex";
+            }
+        }
+    } catch(err) {
+        if (statusEl) {
+            statusEl.className = "alert-msg error mb-3";
+            statusEl.innerHTML = '<i class="fas fa-times-circle"></i> Network error. Please try again.';
+            statusEl.style.display = "flex";
+        }
+    }
+    
+    if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+    }
+});
 </script>';
 include __DIR__ . '/../partials/footer.php';
 ?>
