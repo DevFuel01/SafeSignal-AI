@@ -98,11 +98,11 @@ document.querySelectorAll(".dashboard-tab").forEach(tab => {
 async function loadMyReports() {
     const userId = ' . ($_SESSION['user_id'] ?? 0) . ';
     try {
-        const res  = await fetch("/SafeSignal/api/reports/list.php?limit=50");
+        const res  = await fetch("../api/reports/list.php?limit=50");
         const json = await res.json();
         if (!json.success) return;
         
-        // Filter to user\'s own reports (client-side for simplicity in demo)
+        // Filter to user's own reports (client-side for simplicity in demo)
         const reports = json.data.reports || [];
         
         document.getElementById("stat-my-total").textContent    = reports.length;
@@ -112,7 +112,7 @@ async function loadMyReports() {
         
         const list = document.getElementById("my-reports-list");
         if (!reports.length) {
-            list.innerHTML = `<div class="empty-state"><i class="fas fa-file-circle-xmark"></i><h3>No reports yet</h3><p>Submit your first community safety report.</p><a href="/SafeSignal/pages/report.php" class="btn btn-danger btn-sm mt-2"><i class="fas fa-plus"></i> Report Now</a></div>`;
+            list.innerHTML = `<div class="empty-state"><i class="fas fa-file-circle-xmark"></i><h3>No reports yet</h3><p>Submit your first community safety report.</p><a href="report.php" class="btn btn-danger btn-sm mt-2"><i class="fas fa-plus"></i> Report Now</a></div>`;
             return;
         }
         list.innerHTML = reports.map(r => `
@@ -136,7 +136,7 @@ async function loadMyReports() {
                     <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
                         ${(r.sdg_list||[]).map(s => sdgBadge(s)).join("")}
                     </div>
-                    <a href="/SafeSignal/pages/map.php" class="btn btn-ghost btn-sm"><i class="fas fa-map-pin"></i> View on Map</a>
+                    <a href="map.php" class="btn btn-ghost btn-sm"><i class="fas fa-map-pin"></i> View on Map</a>
                 </div>
             </div>
         `).join("");
@@ -145,7 +145,7 @@ async function loadMyReports() {
 
 async function loadAlerts() {
     try {
-        const res  = await fetch("/SafeSignal/api/alerts/latest.php");
+        const res  = await fetch("../api/alerts/latest.php");
         const json = await res.json();
         const list = document.getElementById("alerts-list");
         const alerts = json.data?.alerts || [];

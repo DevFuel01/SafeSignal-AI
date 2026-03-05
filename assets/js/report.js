@@ -207,10 +207,10 @@ function showSuccessState(data) {
             </div>
 
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                <a href="/SafeSignal/pages/map.php" class="btn btn-primary btn-lg">
+                <a href="map.php" class="btn btn-primary btn-lg">
                     <i class="fas fa-map-marked-alt"></i> View on Live Map
                 </a>
-                <a href="/SafeSignal/pages/report.php" class="btn btn-outline">
+                <a href="report.php" class="btn btn-outline">
                     <i class="fas fa-plus"></i> Submit Another
                 </a>
             </div>
@@ -221,7 +221,7 @@ function showSuccessState(data) {
 
     // Auto-redirect after 5 seconds
     setTimeout(() => {
-        window.location.href = '/SafeSignal/pages/map.php';
+        window.location.href = 'map.php';
     }, 8000);
 }
 
