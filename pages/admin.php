@@ -226,7 +226,7 @@ $extraScript = '<script src="' . APP_URL . '/assets/js/admin.js"></script>
 <script>
 // Load alerts for alerts panel
 async function loadAdminAlerts() {
-    const res  = await fetch("/SafeSignal/api/alerts/latest.php");
+    const res  = await fetch("../api/alerts/latest.php");
     const json = await res.json();
     const container = document.getElementById("admin-alerts-list");
     const alerts = json.data?.alerts || [];

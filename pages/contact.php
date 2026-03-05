@@ -111,7 +111,7 @@ document.getElementById("contact-form")?.addEventListener("submit", async functi
     };
 
     try {
-        const res  = await fetch("/SafeSignal/api/contact/submit.php", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data) });
+        const res  = await fetch("../api/contact/submit.php", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data) });
         const json = await res.json();
         if (json.success) {
             successEl.style.display = "flex";
