@@ -173,13 +173,13 @@ loadMyReports();
 // Profile Form
 document.getElementById("profile-form")?.addEventListener("submit", async function(e) {
     e.preventDefault();
-    const btn = this.querySelector('button[type="submit"]');
+    const btn = this.querySelector(\'button[type="submit"]\');
     const statusEl = document.getElementById("profile-status");
     const name = this.name.value.trim();
     
     if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<span class="spinner spinner-sm"></span> Saving...';
+        btn.innerHTML = \'<span class="spinner spinner-sm"></span> Saving...\';
     }
     if (statusEl) statusEl.style.display = "none";
 
@@ -194,7 +194,7 @@ document.getElementById("profile-form")?.addEventListener("submit", async functi
         if (json.success) {
             if (statusEl) {
                 statusEl.className = "alert-msg success mb-3";
-                statusEl.innerHTML = '<i class="fas fa-check-circle"></i> Profile updated successfully!';
+                statusEl.innerHTML = \'<i class="fas fa-check-circle"></i> Profile updated successfully!\';
                 statusEl.style.display = "flex";
             }
             // Update UI elements
@@ -207,21 +207,21 @@ document.getElementById("profile-form")?.addEventListener("submit", async functi
         } else {
             if (statusEl) {
                 statusEl.className = "alert-msg error mb-3";
-                statusEl.innerHTML = '<i class="fas fa-times-circle"></i> ' + json.message;
+                statusEl.innerHTML = \'<i class="fas fa-times-circle"></i> \' + json.message;
                 statusEl.style.display = "flex";
             }
         }
     } catch(err) {
         if (statusEl) {
             statusEl.className = "alert-msg error mb-3";
-            statusEl.innerHTML = '<i class="fas fa-times-circle"></i> Network error. Please try again.';
+            statusEl.innerHTML = \'<i class="fas fa-times-circle"></i> Network error. Please try again.\';
             statusEl.style.display = "flex";
         }
     }
     
     if (btn) {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+        btn.innerHTML = \'<i class="fas fa-save"></i> Save Changes\';
     }
 });
 </script>';
