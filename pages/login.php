@@ -86,10 +86,10 @@ loginForm?.addEventListener("submit", async function(e) {
 
     const data = { email: this.email.value.trim(), password: this.password.value };
     try {
-        const res  = await fetch("/SafeSignal/api/auth/login.php", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) });
+        const res  = await fetch("../api/auth/login.php", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) });
         const json = await res.json();
         if (json.success) {
-            window.location.href = json.data.user.role === "admin" ? "/SafeSignal/pages/admin.php" : "/SafeSignal/pages/dashboard.php";
+            window.location.href = json.data.user.role === "admin" ? "admin.php" : "dashboard.php";
         } else {
             loginErr.querySelector("span").textContent = json.message;
             loginErr.style.display = "flex";

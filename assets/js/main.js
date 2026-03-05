@@ -8,8 +8,19 @@
 // =====================================================
 // GLOBAL CONST
 // =====================================================
-const APP_URL = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/').replace(/\/pages$/, '').replace(/\/SafeSignal.*/, '/SafeSignal');
-const API_BASE = window.location.origin + '/SafeSignal/api';
+const APP_URL = (() => {
+    // Detect base path by checking where /assets/ is located
+    const scripts = document.getElementsByTagName('script');
+    for (let s of scripts) {
+        if (s.src.includes('/assets/js/main.js')) {
+            return s.src.split('/assets/js/main.js')[0];
+        }
+    }
+    // Fallback to origin if script detection fails
+    return window.location.origin;
+})();
+
+const API_BASE = APP_URL + '/api';
 
 // =====================================================
 // TOAST NOTIFICATION SYSTEM

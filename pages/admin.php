@@ -250,7 +250,7 @@ async function loadAdminAlerts() {
 async function loadAdminMessages() {
     const container = document.getElementById("admin-messages-list");
     try {
-        const res  = await fetch("/SafeSignal/api/admin/messages/list.php");
+        const res  = await fetch("../api/admin/messages/list.php");
         const json = await res.json();
         const data = json.data?.messages || [];
 

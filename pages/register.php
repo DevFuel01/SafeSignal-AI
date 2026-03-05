@@ -125,10 +125,10 @@ document.getElementById("register-form")?.addEventListener("submit", async funct
 
     const data = { name: this.name.value.trim(), email: this.email.value.trim(), password };
     try {
-        const res  = await fetch("/SafeSignal/api/auth/register.php", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data) });
+        const res  = await fetch("../api/auth/register.php", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data) });
         const json = await res.json();
         if (json.success) {
-            window.location.href = "/SafeSignal/pages/dashboard.php";
+            window.location.href = "dashboard.php";
         } else {
             errEl.querySelector("span").textContent = json.message;
             errEl.style.display = "flex";
