@@ -1,0 +1,306 @@
+/* =====================================================
+   SafeSignal AI — Map Page CSS
+   ===================================================== */
+
+.map-page { height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+.map-page .page-content { flex: 1; display: flex; overflow: hidden; padding-top: 57px; }
+
+/* Map Layout */
+.map-layout { display: flex; width: 100%; height: 100%; position: relative; }
+
+/* Sidebar */
+.map-sidebar {
+    width: 360px;
+    flex-shrink: 0;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 10;
+    transition: var(--transition);
+}
+.map-sidebar.collapsed { width: 0; overflow: hidden; }
+
+.sidebar-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    background: rgba(8,12,20,0.5);
+}
+.sidebar-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+/* Filters */
+.filter-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--border);
+    background: var(--bg-glass);
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+.filter-chip:hover, .filter-chip.active {
+    border-color: var(--border-glow);
+    background: var(--primary-glow);
+    color: var(--primary);
+}
+.filter-chip.active-danger  { border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.1); color: var(--sev-high); }
+.filter-chip.active-warning { border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.1); color: var(--sev-medium); }
+.filter-chip.active-success { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.1); color: var(--sev-low); }
+
+.search-box {
+    position: relative;
+}
+.search-box i {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    pointer-events: none;
+}
+.search-box .form-control {
+    padding-left: 2.5rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-glass);
+    border-color: var(--border);
+    font-size: 0.85rem;
+    height: 38px;
+}
+
+/* Reports List in Sidebar */
+.sidebar-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem;
+}
+.sidebar-report-item {
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    margin-bottom: 0.5rem;
+    background: var(--bg-glass);
+}
+.sidebar-report-item:hover, .sidebar-report-item.active {
+    border-color: var(--border-glow);
+    background: rgba(0,212,255,0.05);
+}
+.sri-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.sri-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+.sri-meta i { color: var(--text-muted); }
+
+/* Map Container */
+.map-container {
+    flex: 1;
+    position: relative;
+    z-index: 5;
+}
+#main-map {
+    width: 100%;
+    height: 100%;
+}
+
+/* Map Controls Overlay */
+.map-controls {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.map-control-btn {
+    width: 40px; height: 40px;
+    background: rgba(13,21,38,0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex; align-items: center; justify-content: center;
+}
+.map-control-btn:hover {
+    border-color: var(--border-glow);
+    color: var(--primary);
+}
+
+/* Custom Leaflet Markers */
+.marker-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+.marker-icon i {
+    transform: rotate(45deg);
+    font-size: 14px;
+    color: white;
+}
+.marker-critical { background: var(--sev-critical); box-shadow: 0 0 20px rgba(255,45,85,0.6); animation: glow-pulse 1.5s ease infinite; }
+.marker-high     { background: var(--sev-high);     box-shadow: 0 0 15px rgba(239,68,68,0.5); }
+.marker-medium   { background: var(--sev-medium);   }
+.marker-low      { background: var(--sev-low);      }
+
+/* Leaflet popup dark theme */
+.leaflet-popup-content-wrapper {
+    background: rgba(13,21,38,0.97) !important;
+    border: 1px solid var(--border-glow) !important;
+    border-radius: var(--radius) !important;
+    color: var(--text-primary) !important;
+    box-shadow: var(--shadow-card) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    min-width: 220px;
+}
+.leaflet-popup-tip { background: rgba(13,21,38,0.97) !important; }
+.leaflet-popup-content { margin: 0 !important; }
+.leaflet-popup-close-button { color: var(--text-muted) !important; font-size: 18px !important; top: 8px !important; right: 8px !important; }
+
+.popup-content { padding: 1rem; }
+.popup-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+.popup-meta { font-size: 0.75rem; color: var(--text-muted); display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.popup-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+.popup-btn {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    border: 1px solid var(--border);
+    background: var(--bg-glass);
+    color: var(--text-secondary);
+}
+.popup-btn.primary { background: var(--primary-glow); border-color: var(--border-glow); color: var(--primary); }
+.popup-btn:hover { background: var(--bg-glass-hover); color: var(--text-primary); }
+
+/* Legend */
+.map-legend {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    z-index: 20;
+    background: rgba(13,21,38,0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    font-size: 0.78rem;
+}
+.legend-title { font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.6rem; font-size: 0.7rem; }
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+    color: var(--text-secondary);
+}
+.legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Sidebar Toggle */
+.sidebar-toggle {
+    position: absolute;
+    left: 360px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 30;
+    width: 28px; height: 40px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-left: none;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+.sidebar-toggle:hover { color: var(--primary); border-color: var(--border-glow); }
+.map-sidebar.collapsed ~ .sidebar-toggle { left: 0; }
+
+/* Report Count Badge */
+.report-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--primary);
+    color: #000;
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .map-sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 30;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 300px;
+    }
+    .map-sidebar.mobile-open { transform: translateX(0); }
+    .sidebar-toggle { display: none; }
+    .map-mobile-toggle {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        z-index: 25;
+    }
+}

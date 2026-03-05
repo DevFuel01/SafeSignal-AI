@@ -1,0 +1,9 @@
+# SafeSignal AI - Git Ignore
+/uploads/*
+!/uploads/.gitkeep
+.DS_Store
+Thumbs.db
+config/config.php
+# Note: config/config.php is ignored to protect API keys, but for this hackathon, we may keep it for demo sync.
+# However, usually we ignore it and use .env.
+# Since the user explicitly provided the key, I'll keep it for now but note the risk.
