@@ -469,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Logout
-    const logoutBtn = document.getElementById('logout-btn');
+    const logoutBtn = document.getElementById('admin-logout-btn');
     logoutBtn?.addEventListener('click', async (e) => {
         e.preventDefault();
         try {
