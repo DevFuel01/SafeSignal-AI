@@ -36,7 +36,7 @@ include __DIR__ . '/../partials/header.php';
         <div style="padding:1rem;margin-top:auto;border-top:1px solid var(--border);">
             <a href="<?= APP_URL ?>/pages/map.php" class="admin-nav-link"><i class="fas fa-map"></i> Live Map</a>
             <a href="<?= APP_URL ?>/" class="admin-nav-link"><i class="fas fa-home"></i> Public Site</a>
-            <a href="#" id="admin-logout-btn" class="admin-nav-link" style="color:var(--danger);"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
         </div>
     </aside>
 
